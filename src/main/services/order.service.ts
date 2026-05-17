@@ -4,11 +4,11 @@ import { apiFetch } from "./api.service";
 export async function getOrdersFromServer(): Promise<Order[]>{
     const res = await fetch(`http://localhost:3000/api/file?SECRET_KEY=mitsprint123456789`);
 
-    const data = await res.json()
+    const result = await res.json()
 
-    console.log(data)
+    console.log(result)
 
-    return data;
+    return result.data;
 }
 
 

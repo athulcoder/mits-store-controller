@@ -1,13 +1,14 @@
 import { app, BrowserWindow } from 'electron'
 import { electronApp, optimizer } from '@electron-toolkit/utils'
 import { createMainWinwdow } from './windows/mainWindow'
+import { startQueue } from './services/queue.service'
 
 
   
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   // Set app user model id for windows
   electronApp.setAppUserModelId('com.electron')
 
@@ -20,10 +21,13 @@ app.whenReady().then(() => {
 
   // IPC for the communication for the printer and api for communication with server
 
+  // Start print queue system
+  const mainWindow = createMainWinwdow()
+  mainWindow
 
- const mainWindow = createMainWinwdow()
+   await startQueue()
+  
 
-mainWindow
 
 
 
