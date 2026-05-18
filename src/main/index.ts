@@ -1,7 +1,6 @@
 import { app, BrowserWindow } from 'electron'
 import { electronApp, optimizer } from '@electron-toolkit/utils'
 import { createMainWinwdow } from './windows/mainWindow'
-import { startQueue } from './services/dump/queue.service'
 import { initializeQueue } from './services/queueService'
 import { startFetchWorker } from './services/fetchWorker'
 import { startPrintWorker } from './services/printWorker'
