@@ -11,3 +11,5 @@ export async function apiFetch(apiUrl:string, data:any, method:string="POST"):Pr
         
     })
 }
+
+

@@ -17,7 +17,7 @@ export async function startFetchWorker(){
 
         }
         catch(err){
-            console.log("ERROR occured in fetch worker");
+            console.log("ERROR occured in fetch worker",err);
 
         }
         await delay(5000) // wait after 5 sec

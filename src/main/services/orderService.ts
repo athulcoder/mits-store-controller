@@ -1,8 +1,9 @@
-import { Order } from "../../types/order";
+import { Order, OrderStatus } from "../../types/order";
 import { app } from "electron";
 import path from "path";
 import fs from 'fs/promises'
 import { enqueueOrder } from "./queueService";
+import { apiFetch } from "./apiServices";
 
 const TEMP_QUEUE_PATH = path.join(app.getPath("userData"), "temp");
 
@@ -140,3 +141,18 @@ async function getOrdersFromServer(): Promise<Order[]>{
 }
 
 
+
+
+
+export async function updateOrderStatus(orderId:string , orderStatus:OrderStatus){
+    
+    console.log("HELLOE EHEHEHEHHE")
+
+    console.log(orderId, orderStatus ,"HEH----------")
+    const res = await apiFetch('/api/file/update',{orderId, orderStatus});
+
+    const data = await res.json()
+    console.log(data);
+
+    
+}

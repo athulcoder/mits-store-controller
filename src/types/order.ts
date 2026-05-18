@@ -27,8 +27,8 @@ export interface Order {
 
 
 export enum OrderStatus {
-PENDING,
-PRINTING,
-COMPLETED,
-FAILED
+  PENDING = "PENDING",
+  PRINTING = "PRINTING",
+  PRINTED = "PRINTED",
+  FAILED = "FAILED"
 }

@@ -12,7 +12,8 @@ import { app } from "electron"
 
 import { peekQueue, dequeueOrder } from "../services/queueService"
 import { getOrderMetaData } from "./printFileService"
-import { PrintFile } from "../../types/order"
+import { OrderStatus, PrintFile } from "../../types/order"
+import { updateOrderStatus } from "./orderService"
 
 const TEMP_QUEUE_PATH = path.join(
     app.getPath("userData"),
@@ -120,11 +121,7 @@ export async function startPrintWorker() {
             )
 
             // Update server status here
-            // await updateOrderStatus(
-            //     orderId,
-            //     "COMPLETED"
-            // )
-
+            await updateOrderStatus(order.id,OrderStatus.PRINTED)
             // Remove from FIFO queue
             await dequeueOrder()
 
