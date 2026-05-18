@@ -2,7 +2,6 @@ import { Order } from "../../types/order";
 import { app } from "electron";
 import path from "path";
 import fs from 'fs/promises'
-import os from "os"
 import { enqueueOrder } from "./queueService";
 
 const TEMP_QUEUE_PATH = path.join(app.getPath("userData"), "temp");
