@@ -1,4 +1,4 @@
-import { Order, OrderStatus } from "../../types/order";
+import { Order, OrderStatus } from "../../../types/order";
 import { apiFetch } from "./api.service";
 // this fill fetch the orders from the server
 export async function getOrdersFromServer(): Promise<Order[]>{

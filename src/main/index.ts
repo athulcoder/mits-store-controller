@@ -1,7 +1,10 @@
 import { app, BrowserWindow } from 'electron'
 import { electronApp, optimizer } from '@electron-toolkit/utils'
 import { createMainWinwdow } from './windows/mainWindow'
-import { startQueue } from './services/queue.service'
+import { startQueue } from './services/dump/queue.service'
+import { initializeQueue } from './services/queueService'
+import { startFetchWorker } from './services/fetchWorker'
+import { startPrintWorker } from './services/printWorker'
 
 
   
@@ -22,12 +25,30 @@ app.whenReady().then(async () => {
   // IPC for the communication for the printer and api for communication with server
 
   // Start print queue system
-  const mainWindow = createMainWinwdow()
-  mainWindow
 
-   await startQueue()
-  
 
+     //QUEUE is created if no exists queue.json
+      await initializeQueue()
+
+
+      //WORKER 1 (fetch the orders and add to the local queue)
+      startFetchWorker().catch(err => {
+              console.error(
+                  "Fetch Worker Error:",
+                  err
+              )
+          })
+
+
+    //WORKER 2 (take the first order from queue and give to the printer)
+    startPrintWorker().catch(err => {
+        console.error(
+            "Print Worker Error:",
+            err
+        )
+    })
+
+    createMainWinwdow()
 
 
 

@@ -7,7 +7,7 @@ import fs from "fs"
 import { exec } from "child_process"
 import { print } from "pdf-to-printer"
 
-import type { PrintFile } from "../../types/order"
+import type { PrintFile } from "../../../types/order"
 
 export async function printFile(
   filePath: string,

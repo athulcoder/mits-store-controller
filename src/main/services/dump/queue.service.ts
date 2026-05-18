@@ -1,4 +1,4 @@
-import { OrderStatus } from "../../types/order";
+import { OrderStatus } from "../../../types/order";
 import { downloadFile } from "./download.service";
 import { getOrdersFromServer, updateOrderStatus } from "./order.service";
 import { printFile } from "./print.service";
