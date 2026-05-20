@@ -34,7 +34,7 @@ function App(): React.JSX.Element {
             <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 h-[calc(100vh-220px)] min-h-[600px]">
               {/* Left Column: Queue Table */}
               <div className="xl:col-span-2 h-full">
-                <QueueTable />
+                {/* <QueueTable /> */}
               </div>
               
               {/* Right Column: Status & Controls */}
