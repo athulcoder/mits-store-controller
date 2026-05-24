@@ -1,34 +1,46 @@
-# mits-store-controller
+# MITS Store Controller
 
-An Electron application with React and TypeScript
+MITS Store Controller is an Electron-based desktop application used for remotely accessing and managing the MITS Print Server.
 
-## Recommended IDE Setup
+The application provides a simple and secure interface for monitoring printers, managing print jobs, and communicating with the print server in real time.
 
-- [VSCode](https://code.visualstudio.com/) + [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) + [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+---
 
-## Project Setup
+## Features
 
-### Install
+- Remote access to MITS Print Server
+- Real-time printer monitoring
+- Print queue management
+- Secure authentication
+- Cross-platform desktop support
+- Lightweight and fast interface
+- Desktop notifications
+
+---
+
+## Tech Stack
+
+- Electron
+- HTML
+- CSS
+- JavaScript
+- Node.js
+
+---
+
+## Project Structure
 
 ```bash
-$ npm install
-```
-
-### Development
-
-```bash
-$ npm run dev
-```
-
-### Build
-
-```bash
-# For windows
-$ npm run build:win
-
-# For macOS
-$ npm run build:mac
-
-# For Linux
-$ npm run build:linux
-```
+mits-store-controller/
+│
+├── public/
+├── src/
+│   ├── main/
+│   ├── renderer/
+│   ├── components/
+│   ├── services/
+│   └── utils/
+│
+├── package.json
+├── vite.config.js
+└── README.md
