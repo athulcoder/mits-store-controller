@@ -3,141 +3,143 @@ import { OrderAvatar } from "./OrderAvatar";
 import { PaymentBadge } from "./PaymentBadge";
 
 import { formatRelativeTime }
-from "../../utils/formatRelativeTime";
+    from "../../utils/formatRelativeTime";
 
 interface Props {
 
-  order: {
+    order: {
 
-    id: string;
+        id: string;
 
-    userName: string;
+        userName: string;
 
-    batch: string | null;
+        batch: string | null;
 
-    department: string | null;
+        department: string | null;
 
-    image: string | null;
+        image: string | null;
 
-    paymentStatus: string;
+        paymentStatus: string;
 
-    printCount: number;
+        printCount: number;
 
-    createdAt: string;
-  };
+        createdAt: string;
+    };
 
-  isNext?: boolean;
+    isNext?: boolean;
 }
 
 export function OrderCard({
-  order,
-  isNext,
+    order,
+    isNext,
+
 }: Props) {
 
-  return (
-    <Card
-      className={
-        isNext
-          ? "border-blue-500"
-          : ""
-      }
-    >
+    console.log("HELLO IMAGINE URL HERE : ", order.image)
+    return (
+        <Card
+            className={
+                isNext
+                    ? "border-blue-500"
+                    : ""
+            }
+        >
 
-      <div
-        className="
+            <div
+                className="
         flex
         justify-between
         items-start
       "
-      >
-        <div
-          className="
+            >
+                <div
+                    className="
           flex
           gap-3
         "
-        >
+                >
 
-          <OrderAvatar
-            name={
-              order.userName
-            }
-            image={
-              order.image
-            }
-          />
+                    <OrderAvatar
+                        name={
+                            order.userName
+                        }
+                        image={
+                            order.image
+                        }
+                    />
 
-          <div>
+                    <div>
 
-            <p
-              className="
+                        <p
+                            className="
               text-white
               font-medium
             "
-            >
-              {order.userName}
-            </p>
+                        >
+                            {order.userName}
+                        </p>
 
-            <p
-              className="
+                        <p
+                            className="
               text-sm
               text-zinc-400
             "
-            >
-              {order.batch}
-              {" • "}
-              {order.department}
-            </p>
+                        >
+                            {order.batch}
+                            {" • "}
+                            {order.department}
+                        </p>
 
-          </div>
+                    </div>
 
-        </div>
+                </div>
 
-        <PaymentBadge
-          status={
-            order.paymentStatus
-          }
-        />
-      </div>
+                <PaymentBadge
+                    status={
+                        order.paymentStatus
+                    }
+                />
+            </div>
 
-      <div
-        className="
+            <div
+                className="
         mt-4
         flex
         justify-between
         text-sm
         text-zinc-400
       "
-      >
+            >
 
-        <span>
-          {order.printCount}
-          {" "}
-          Prints
-        </span>
+                <span>
+                    {order.printCount}
+                    {" "}
+                    Prints
+                </span>
 
-        <span>
-          {formatRelativeTime(
-            order.createdAt
-          )}
-        </span>
+                <span>
+                    {formatRelativeTime(
+                        order.createdAt
+                    )}
+                </span>
 
-      </div>
+            </div>
 
-      {isNext && (
+            {isNext && (
 
-        <div
-          className="
+                <div
+                    className="
           mt-3
           text-xs
           text-blue-400
           font-medium
         "
-        >
-          NEXT TO PRINT
-        </div>
+                >
+                    NEXT TO PRINT
+                </div>
 
-      )}
+            )}
 
-    </Card>
-  );
+        </Card>
+    );
 }

@@ -11,6 +11,8 @@ export interface OrderCardDto {
 
   paymentStatus: string;
 
+  paymentAmount:number;
+
   printCount: number;
 
   createdAt: string;
@@ -27,6 +29,7 @@ export interface AppState {
   worker2: {
     running: boolean;
     currentOrderId: string | null;
+    currentOrder:OrderCardDto;
   };
 
   queue: {

@@ -76,24 +76,24 @@ export function Dashboard() {
                     lastSync={
                         appState.worker1.lastSyncAt
                     }
-                    />
+                />
 
                 {/* Current Printing */}
 
                 <CurrentPrintCard
-                    orderId={
-                        appState.worker2.currentOrderId
+                    order={
+                        appState.worker2.currentOrder
                     }
                 />
 
                 {/* Queue */}
 
-            <QueuePanel
-            orders={
-                appState.queue.orders
-            }
-            />
-        </div>
+                <QueuePanel
+                    orders={
+                        appState.queue.orders
+                    }
+                />
+            </div>
         </main>
     );
 }
