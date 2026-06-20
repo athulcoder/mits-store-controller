@@ -2,6 +2,8 @@ import fs from "fs/promises"
 import path from "path"
 import { app } from "electron"
 import { syncQueueState } from "../runtime/syncQueueState"
+import { EVENTS } from "../runtime/events"
+import { eventBus } from "../runtime/eventBus"
 
 const TEMP_QUEUE_PATH = path.join(
     app.getPath("userData"),
@@ -101,4 +103,10 @@ export async function enqueueOrder(
     )
 
     await syncQueueState()
+
+
+    eventBus.emit(
+        EVENTS.ORDER_ENQUEUED,
+        orderId
+    )
 }

@@ -7,150 +7,65 @@ import { exec } from "child_process"
 import { print } from "pdf-to-printer"
 import os from "os"
 import fs from "fs/promises"
-import path from "path"
-import { app } from "electron"
 
-import { peekQueue, dequeueOrder } from "../services/queueService"
-import { getOrderMetaData } from "./printFileService"
-import { OrderStatus, PrintFile } from "../../types/order"
-import { updateOrderStatus } from "./orderService"
+
+import { peekQueue } from "../services/queueService"
 import { stateManager } from "../runtime/stateManager"
+import { processOrder } from "./orderProcessor"
+import { PrintFile } from "../../types/order"
+import { AppMode } from "../runtime/appState"
 
-const TEMP_QUEUE_PATH = path.join(
-    app.getPath("userData"),
-    "temp"
-)
+
 
 export async function startPrintWorker() {
 
-    while (true) {
+stateManager.updateWorker2({
+running: true
+});
 
-        try {
+while (true) {
 
-            // Get first order from FIFO queue
-            const orderId = await peekQueue()
+try {
 
-            // Queue empty
-            if (!orderId) {
+  const mode =
+    stateManager
+      .getState()
+      .mode;
 
-                await delay(2000)
+  if (
+    mode === AppMode.MANUAL
+  ) {
 
-                continue
-            }
+    await delay(1000);
 
-            stateManager.updateWorker2({
-              currentOrderId: orderId
-          })
+    continue;
+  }
 
-            console.log(
-                `Processing Order: ${orderId}`
-            )
+  const orderId =
+    await peekQueue();
 
+  if (!orderId) {
 
-            const orderFolderPath = path.join(
-                TEMP_QUEUE_PATH,
-                orderId
-            )
+    await delay(2000);
 
-            // Check READY marker
-            const readyPath = path.join(
-                orderFolderPath,
-                "READY"
-            )
+    continue;
+  }
 
-            try {
+  await processOrder(
+    orderId
+  );
 
-                await fs.access(readyPath)
+} catch (err) {
 
-            } catch {
-
-                console.log(
-                    `Order ${orderId} not READY`
-                )
-
-                await delay(2000)
-
-                continue
-            }
-
-           
-            const order = await getOrderMetaData(orderFolderPath);
-
-            // Sequential printing
-           for (const printMeta of order.prints) {
-
-                const pdfPath = path.join(
-                    orderFolderPath,
-                    `${printMeta.id}.pdf`
-                )
-
-                const queuedPath = path.join(
-                    orderFolderPath,
-                    `${printMeta.id}.queued`
-                )
-
-                // Skip already queued
-                try {
-
-                    await fs.access(queuedPath)
-
-                    console.log(
-                        `${printMeta.id} already queued`
-                    )
-
-                    continue
-
-                } catch {}
-
-
-                // Pass metadata directly
-                await addFileToPrinterQueue(
-                    pdfPath,
-                    printMeta
-                )
-
-                // Create recovery marker
-                await fs.writeFile(
-                    queuedPath,
-                    ""
-                )
-
-                console.log(
-                    `${printMeta.id} queued successfully`
-                )
+  console.error(
+    "Print Worker Error:",
+    err
+  );
 }
 
-            // ALL PRINTS COMPLETED
+await delay(1000);
 
-            console.log(
-                `Order ${orderId} completed`
-            )
-
-            // Update server status here
-            await updateOrderStatus(order.id,OrderStatus.PRINTED)
-            // Remove from FIFO queue
-            await dequeueOrder()
-
-            stateManager.updateWorker2({
-                currentOrderId: null
-            })
-
-            // Delete order folder
-            await fs.rm(orderFolderPath, {
-                recursive: true,
-                force: true
-            })
-
-        } catch (err) {
-
-            console.error(
-                "Print Worker Error:",
-                err
-            )
-        }
-
-        await delay(1000)
-    }
+}
 }
 
 function delay(ms: number) {
@@ -161,7 +76,7 @@ function delay(ms: number) {
 }
 
 
- async function addFileToPrinterQueue(
+ export async function addFileToPrinterQueue(
   filePath: string,
   printFile:PrintFile,
   printerName?: string

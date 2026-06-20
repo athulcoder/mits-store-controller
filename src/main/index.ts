@@ -5,6 +5,8 @@ import { initializeQueue } from './services/queueService'
 import { startFetchWorker } from './services/fetchWorker'
 import { startPrintWorker } from './services/printWorker'
 import "./runtime/testRuntime"
+import { registerStateEvents, registerStateHandlers } from './ipc/stateHandlers'
+import { registerModeHandlers } from './ipc/modeHandlers'
 
 
 
@@ -48,6 +50,19 @@ app.whenReady().then(async () => {
             err
         )
     })
+
+
+
+
+    registerStateHandlers()
+
+registerStateEvents()
+
+registerModeHandlers()
+
+
+
+
 
     createMainWinwdow()
 
