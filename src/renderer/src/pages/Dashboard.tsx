@@ -3,7 +3,6 @@ import { StatusBar } from "../components/layout/StatusBar";
 import { ModeSwitcher } from "../components/mode/ModeSwitcher";
 import { CurrentPrintCard } from "../components/printing/CurrentPrintCard";
 import { QueuePanel } from "../components/queue/QueuePanel";
-import { WorkerCard } from "../components/workers/WorkerCard";
 import { useInitializeApp } from "../hooks/useInitializeApp";
 import { useAppStore } from "../store/appStore";
 
