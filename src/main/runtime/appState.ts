@@ -9,13 +9,37 @@ export interface Worker1State {
 }
 
 export interface Worker2State {
-    running: boolean
-    currentOrderId: string | null
+  running: boolean;
+  currentOrderId: string | null;
+  currentOrder: OrderCardDto | null;
+}
+
+export interface OrderCardDto {
+
+    id: string
+
+    userName: string
+
+    batch: string | null
+
+    department: string | null
+
+    image: string | null
+
+    paymentStatus: string
+
+    paymentAmount: number
+
+    printCount: number
+
+    createdAt: string
 }
 
 export interface QueueState {
+
     totalOrders: number
-    orderIds: string[]
+
+    orders: OrderCardDto[]
 }
 
 export interface AppState {

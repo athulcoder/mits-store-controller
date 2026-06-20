@@ -1,5 +1,22 @@
-export interface AppState {
+export interface OrderCardDto {
+  id: string;
 
+  userName: string;
+
+  batch: string | null;
+
+  department: string | null;
+
+  image: string | null;
+
+  paymentStatus: string;
+
+  printCount: number;
+
+  createdAt: string;
+}
+
+export interface AppState {
   mode: "AUTO" | "MANUAL";
 
   worker1: {
@@ -14,6 +31,6 @@ export interface AppState {
 
   queue: {
     totalOrders: number;
-    orderIds: string[];
+    orders: OrderCardDto[];
   };
 }

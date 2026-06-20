@@ -1,9 +1,14 @@
-import { getQueue } from "../services/queueService"
+import { mapQueueState }
+from "./mapQueueState"
 import { stateManager } from "./stateManager"
 
-export async function syncQueueState() {
+export async function
+syncQueueState(){
 
-    const queue = await getQueue()
+   const orders =
+      await mapQueueState()
 
-    stateManager.setQueue(queue)
+   stateManager.setQueue(
+      orders
+   )
 }

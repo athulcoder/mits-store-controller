@@ -18,13 +18,14 @@ class StateManager {
         },
 
         worker2: {
-            running: false,
-            currentOrderId: null
+        running: false,
+        currentOrderId: null,
+        currentOrder: null
         },
 
         queue: {
             totalOrders: 0,
-            orderIds: []
+            orders: []
         }
     }
 
@@ -68,19 +69,19 @@ class StateManager {
         this.emitUpdate()
     }
 
-    setQueue(orderIds: string[]) {
+        setQueue(
+        orders: AppState["queue"]["orders"]
+        ) {
 
         this.state.queue = {
 
-            totalOrders:
-                orderIds.length,
+            totalOrders: orders.length,
 
-            orderIds
+            orders
         }
 
         this.emitUpdate()
-    }
-
+        }
     private emitUpdate() {
 
         eventBus.emit(

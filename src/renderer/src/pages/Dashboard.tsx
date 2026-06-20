@@ -1,4 +1,5 @@
 import { AppHeader } from "../components/layout/AppHeader";
+import { StatusBar } from "../components/layout/StatusBar";
 import { ModeSwitcher } from "../components/mode/ModeSwitcher";
 import { CurrentPrintCard } from "../components/printing/CurrentPrintCard";
 import { QueuePanel } from "../components/queue/QueuePanel";
@@ -62,39 +63,20 @@ export function Dashboard() {
                     />
                 </div>
 
-                {/* Worker Status */}
-
-                <div
-                    className="
-                    grid
-                    gap-4
-                    lg:grid-cols-2
-                "
-                >
-                    <WorkerCard
-                        title="Fetch Worker"
-                        running={
-                            appState.worker1.running
-                        }
-                        label="Last Sync"
-                        value={
-                            appState.worker1.lastSyncAt ??
-                            "Never"
-                        }
+                <StatusBar
+                    fetchRunning={
+                        appState.worker1.running
+                    }
+                    printRunning={
+                        appState.worker2.running
+                    }
+                    queueCount={
+                        appState.queue.totalOrders
+                    }
+                    lastSync={
+                        appState.worker1.lastSyncAt
+                    }
                     />
-
-                    <WorkerCard
-                        title="Print Worker"
-                        running={
-                            appState.worker2.running
-                        }
-                        label="Current Order"
-                        value={
-                            appState.worker2.currentOrderId ??
-                            "Idle"
-                        }
-                    />
-                </div>
 
                 {/* Current Printing */}
 
@@ -106,12 +88,12 @@ export function Dashboard() {
 
                 {/* Queue */}
 
-                <QueuePanel
-                    orderIds={
-                        appState.queue.orderIds
-                    }
-                />
-            </div>
+            <QueuePanel
+            orders={
+                appState.queue.orders
+            }
+            />
+        </div>
         </main>
     );
 }

@@ -68,6 +68,42 @@ await getOrderMetaData(
 orderFolderPath
 );
 
+stateManager.updateWorker2({
+
+  currentOrderId: order.id,
+
+  currentOrder: {
+
+    id: order.id,
+
+    userName:
+      order.user.name ??
+      "Unknown",
+
+    batch:
+      order.user?.batch ??
+      null,
+
+    department:
+      order.user.department ??
+      null,
+    paymentAmount:order.payment?.amount??0,
+
+    image:
+      order.user?.image ??
+      null,
+
+    paymentStatus:
+      order.paymentStatus,
+
+    printCount:
+      order.prints.length,
+
+    createdAt:
+      order.createdAt
+  }
+});
+
 for (const printMeta of order.prints) {
 
 const pdfPath = path.join(
@@ -122,7 +158,10 @@ OrderStatus.PRINTED
 await dequeueOrder();
 
 stateManager.updateWorker2({
-currentOrderId: null
+
+  currentOrderId: null,
+
+  currentOrder: null
 });
 
 eventBus.emit(

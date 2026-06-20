@@ -14,19 +14,21 @@ export function ManualPrintButton({
       disabled={loading}
       onClick={onPrint}
       className="
-      w-full
-      rounded-xl
-      bg-white
-      px-4
-      py-3
-      text-black
-      font-medium
-      transition
-      disabled:opacity-50
-    "
+        w-full
+        rounded-xl
+        bg-white
+        px-4
+        py-3
+        font-medium
+        text-black
+        transition
+        hover:opacity-90
+        disabled:cursor-not-allowed
+        disabled:opacity-50
+      "
     >
       {loading
-        ? "Sending..."
+        ? "Sending To Printer..."
         : `Print ${orderId}`}
     </button>
   );

@@ -1,63 +1,70 @@
 import { Card } from "../common/Card";
-import { QueueItem } from "./QueueItem";
+import { OrderCard } from "../orders/OrderCard";
+import { OrderCardDto } from "../../types/app-state";
 
 interface Props {
-  orderIds: string[];
+  orders: OrderCardDto[];
 }
 
 export function QueuePanel({
-  orderIds,
+  orders,
 }: Props) {
   return (
     <Card>
 
       <div
         className="
-        flex
-        items-center
-        justify-between
-      "
+          flex
+          items-center
+          justify-between
+        "
       >
         <h3
           className="
-          text-sm
-          text-zinc-400
-        "
+            text-sm
+            font-medium
+            text-zinc-400
+          "
         >
-          Queue
+          Print Queue
         </h3>
 
         <span
           className="
-          text-sm
-          text-zinc-500
-        "
+            text-sm
+            text-zinc-500
+          "
         >
-          {orderIds.length} Orders
+          {orders.length} Orders
         </span>
       </div>
 
       <div
         className="
-        mt-4
-        space-y-3
-      "
+          mt-4
+          space-y-4
+        "
       >
-        {orderIds.length === 0 ? (
-          <p
+        {orders.length === 0 ? (
+          <div
             className="
-            text-zinc-500
-          "
+              rounded-xl
+              border
+              border-zinc-800
+              p-6
+              text-center
+              text-zinc-500
+            "
           >
             Queue Empty
-          </p>
+          </div>
         ) : (
-          orderIds.map(
-            (orderId, index) => (
-              <QueueItem
-                key={orderId}
-                orderId={orderId}
-                isFirst={index === 0}
+          orders.map(
+            (order, index) => (
+              <OrderCard
+                key={order.id}
+                order={order}
+                isNext={index === 0}
               />
             )
           )
