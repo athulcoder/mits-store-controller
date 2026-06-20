@@ -5,6 +5,9 @@ declare global {
     interface Window {
 
         api: {
+            manualPrint(
+                orderId:string
+                ):Promise<void>
 
             getState():
             Promise<any>

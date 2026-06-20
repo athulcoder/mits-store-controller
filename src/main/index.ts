@@ -7,6 +7,7 @@ import { startPrintWorker } from './services/printWorker'
 import "./runtime/testRuntime"
 import { registerStateEvents, registerStateHandlers } from './ipc/stateHandlers'
 import { registerModeHandlers } from './ipc/modeHandlers'
+import { registerManualPrintHandlers } from './ipc/manualPrintHandlers'
 
 
 
@@ -52,7 +53,7 @@ app.whenReady().then(async () => {
     })
 
 
-
+    registerManualPrintHandlers();
 
     registerStateHandlers()
 

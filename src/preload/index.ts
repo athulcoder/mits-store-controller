@@ -3,6 +3,13 @@ import { electronAPI } from '@electron-toolkit/preload'
 
 // Custom APIs for renderer
 const api = {
+  manualPrint: (
+    orderId: string
+) =>
+    ipcRenderer.invoke(
+        "manual-print",
+        orderId
+    ),
 
     getState: () => {
 
