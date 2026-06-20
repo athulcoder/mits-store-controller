@@ -4,6 +4,8 @@ import { createMainWinwdow } from './windows/mainWindow'
 import { initializeQueue } from './services/queueService'
 import { startFetchWorker } from './services/fetchWorker'
 import { startPrintWorker } from './services/printWorker'
+import "./runtime/testRuntime"
+
 
 
   

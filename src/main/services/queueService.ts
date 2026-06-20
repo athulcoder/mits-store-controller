@@ -1,6 +1,7 @@
 import fs from "fs/promises"
 import path from "path"
 import { app } from "electron"
+import { syncQueueState } from "../runtime/syncQueueState"
 
 const TEMP_QUEUE_PATH = path.join(
     app.getPath("userData"),
@@ -75,6 +76,8 @@ export async function dequeueOrder() {
         QUEUE_PATH,
         JSON.stringify(queue, null, 2)
     )
+
+    await syncQueueState()
 }
 
 
@@ -96,4 +99,6 @@ export async function enqueueOrder(
         QUEUE_PATH,
         JSON.stringify(queue, null, 2)
     )
+
+    await syncQueueState()
 }

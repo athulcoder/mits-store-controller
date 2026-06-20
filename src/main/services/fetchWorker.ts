@@ -4,16 +4,25 @@ THIS IS WORKER 1 ( PRODUCER)
 FETCH ORDERS AND DOWNLAOD THE PRINTS INTO temp folder 
 */
 
+import { stateManager } from "../runtime/stateManager";
 import { fetchOrdersAndPrepare } from "./orderService";
 
 
 export async function startFetchWorker(){
+       stateManager.updateWorker1({
+        running:true
+    })
 
     while (true){
 
         try{
 
             await fetchOrdersAndPrepare();
+
+            stateManager.updateWorker1({
+                lastSyncAt:
+                    new Date().toISOString()
+            })
 
         }
         catch(err){

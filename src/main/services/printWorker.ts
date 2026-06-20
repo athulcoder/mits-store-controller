@@ -14,6 +14,7 @@ import { peekQueue, dequeueOrder } from "../services/queueService"
 import { getOrderMetaData } from "./printFileService"
 import { OrderStatus, PrintFile } from "../../types/order"
 import { updateOrderStatus } from "./orderService"
+import { stateManager } from "../runtime/stateManager"
 
 const TEMP_QUEUE_PATH = path.join(
     app.getPath("userData"),
@@ -37,9 +38,14 @@ export async function startPrintWorker() {
                 continue
             }
 
+            stateManager.updateWorker2({
+              currentOrderId: orderId
+          })
+
             console.log(
                 `Processing Order: ${orderId}`
             )
+
 
             const orderFolderPath = path.join(
                 TEMP_QUEUE_PATH,
@@ -124,6 +130,10 @@ export async function startPrintWorker() {
             await updateOrderStatus(order.id,OrderStatus.PRINTED)
             // Remove from FIFO queue
             await dequeueOrder()
+
+            stateManager.updateWorker2({
+                currentOrderId: null
+            })
 
             // Delete order folder
             await fs.rm(orderFolderPath, {
