@@ -19,7 +19,7 @@ export function StatusBar({
         flex
         flex-wrap
         items-center
-        gap-4
+        gap-3
       "
         >
             <StatusPill
