@@ -53,19 +53,15 @@ app.whenReady().then(async () => {
     })
 
 
-    registerManualPrintHandlers();
+registerManualPrintHandlers();
 
-    registerStateHandlers()
+registerStateHandlers()
 
 registerStateEvents()
 
 registerModeHandlers()
 
-
-
-
-
-    createMainWinwdow()
+createMainWinwdow()
 
 
 
