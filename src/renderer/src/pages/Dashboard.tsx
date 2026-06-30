@@ -46,7 +46,7 @@ export function Dashboard() {
                 mx-auto
                 max-w-7xl
                 p-5
-                space-y-6
+                space-y-3
             "
             >
                 <AppHeader />
