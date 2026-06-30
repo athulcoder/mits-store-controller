@@ -27,7 +27,7 @@ export function Dashboard() {
             "
             >
                 <p className="text-zinc-500">
-                    Loading...
+                    Loading please wait ...
                 </p>
             </main>
         );
@@ -45,7 +45,7 @@ export function Dashboard() {
                 className="
                 mx-auto
                 max-w-7xl
-                p-6
+                p-5
                 space-y-6
             "
             >
